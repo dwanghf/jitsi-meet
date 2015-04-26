@@ -148,6 +148,7 @@ var XMPP = {
      * XMPP connection status
      */
     Status: Strophe.Status,
+    XMPPEvents: XMPPEvents,
 
     /**
      * Remembers if we were muted by the focus.
@@ -201,6 +202,9 @@ var XMPP = {
             roomjid += '/' + tmpJid;
         }
         connection.emuc.doJoin(roomjid);
+        window.$injector.get("$rootScope").$apply(function() {
+          window.$injector.get("meetingService").addSelf(roomjid);
+        });
     },
     myJid: function () {
         if(!connection)

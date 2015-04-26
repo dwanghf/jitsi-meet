@@ -152,7 +152,7 @@ var messageHandler = (function(my) {
      * @param error the error that is being reported
      */
     my.openReportDialog = function(titleKey, msgKey, error) {
-        my.openMessageDialog(titleKey, msgKey);
+        // my.openMessageDialog(titleKey, msgKey);
         console.log(error);
         //FIXME send the error to the server
     };

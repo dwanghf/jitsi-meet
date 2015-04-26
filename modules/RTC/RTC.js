@@ -23,6 +23,8 @@ var RTC = {
     remoteStreams: {},
     localAudio: null,
     localVideo: null,
+    StreamEventTypes: StreamEventTypes,
+    MediaStreamType: MediaStreamType,
     addStreamListener: function (listener, eventType) {
         eventEmitter.on(eventType, listener);
     },

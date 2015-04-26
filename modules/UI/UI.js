@@ -1,25 +1,25 @@
 var UI = {};
 
 var VideoLayout = require("./videolayout/VideoLayout.js");
-var AudioLevels = require("./audio_levels/AudioLevels.js");
-var Prezi = require("./prezi/Prezi.js");
-var Etherpad = require("./etherpad/Etherpad.js");
-var Chat = require("./side_pannels/chat/Chat.js");
-var Toolbar = require("./toolbars/Toolbar");
-var ToolbarToggler = require("./toolbars/ToolbarToggler");
-var BottomToolbar = require("./toolbars/BottomToolbar");
-var ContactList = require("./side_pannels/contactlist/ContactList");
-var Avatar = require("./avatar/Avatar");
+// var AudioLevels = require("./audio_levels/AudioLevels.js");
+// var Prezi = require("./prezi/Prezi.js");
+// var Etherpad = require("./etherpad/Etherpad.js");
+// var Chat = require("./side_pannels/chat/Chat.js");
+// var Toolbar = require("./toolbars/Toolbar");
+// var ToolbarToggler = require("./toolbars/ToolbarToggler");
+// var BottomToolbar = require("./toolbars/BottomToolbar");
+// var ContactList = require("./side_pannels/contactlist/ContactList");
+// var Avatar = require("./avatar/Avatar");
 var EventEmitter = require("events");
-var SettingsMenu = require("./side_pannels/settings/SettingsMenu");
+// var SettingsMenu = require("./side_pannels/settings/SettingsMenu");
 var Settings = require("./../settings/Settings");
-var PanelToggler = require("./side_pannels/SidePanelToggler");
+// var PanelToggler = require("./side_pannels/SidePanelToggler");
 var RoomNameGenerator = require("./welcome_page/RoomnameGenerator");
 UI.messageHandler = require("./util/MessageHandler");
 var messageHandler = UI.messageHandler;
 var Authentication  = require("./authentication/Authentication");
-var UIUtil = require("./util/UIUtil");
-var NicknameHandler = require("./util/NicknameHandler");
+// var UIUtil = require("./util/UIUtil");
+// var NicknameHandler = require("./util/NicknameHandler");
 var CQEvents = require("../../service/connectionquality/CQEvents");
 var DesktopSharingEventTypes
     = require("../../service/desktopsharing/DesktopSharingEventTypes");
@@ -31,52 +31,52 @@ var eventEmitter = new EventEmitter();
 var roomName = null;
 
 
-function setupPrezi()
-{
-    $("#reloadPresentationLink").click(function()
-    {
-        Prezi.reloadPresentation();
-    });
-}
+// function setupPrezi()
+// {
+//     $("#reloadPresentationLink").click(function()
+//     {
+//         Prezi.reloadPresentation();
+//     });
+// }
 
-function setupChat()
-{
-    Chat.init();
-    $("#toggle_smileys").click(function() {
-        Chat.toggleSmileys();
-    });
-}
+// function setupChat()
+// {
+//     Chat.init();
+//     $("#toggle_smileys").click(function() {
+//         Chat.toggleSmileys();
+//     });
+// }
 
-function setupToolbars() {
-    Toolbar.init(UI);
-    Toolbar.setupButtonsFromConfig();
-    BottomToolbar.init();
-}
+// function setupToolbars() {
+//     Toolbar.init(UI);
+//     Toolbar.setupButtonsFromConfig();
+//     BottomToolbar.init();
+// }
 
-function streamHandler(stream) {
-    switch (stream.type)
-    {
-        case "audio":
-            VideoLayout.changeLocalAudio(stream);
-            break;
-        case "video":
-            VideoLayout.changeLocalVideo(stream);
-            break;
-        case "stream":
-            VideoLayout.changeLocalStream(stream);
-            break;
-    }
-}
+// function streamHandler(stream) {
+//     switch (stream.type)
+//     {
+//         case "audio":
+//             VideoLayout.changeLocalAudio(stream);
+//             break;
+//         case "video":
+//             VideoLayout.changeLocalVideo(stream);
+//             break;
+//         case "stream":
+//             VideoLayout.changeLocalStream(stream);
+//             break;
+//     }
+// }
 
-function onDisposeConference(unload) {
-    Toolbar.showAuthenticateButton(false);
-};
+// function onDisposeConference(unload) {
+//     Toolbar.showAuthenticateButton(false);
+// };
 
-function onDisplayNameChanged(jid, displayName) {
-    ContactList.onDisplayNameChange(jid, displayName);
-    SettingsMenu.onDisplayNameChange(jid, displayName);
-    VideoLayout.onDisplayNameChanged(jid, displayName);
-}
+// function onDisplayNameChanged(jid, displayName) {
+//     ContactList.onDisplayNameChange(jid, displayName);
+//     SettingsMenu.onDisplayNameChange(jid, displayName);
+//     VideoLayout.onDisplayNameChanged(jid, displayName);
+// }
 
 function registerListeners() {
     APP.RTC.addStreamListener(streamHandler, StreamEventTypes.EVENT_TYPE_LOCAL_CREATED);
@@ -263,15 +263,15 @@ function bindEvents()
 
 UI.start = function (init) {
     document.title = interfaceConfig.APP_NAME;
-    if(config.enableWelcomePage && window.location.pathname == "/" &&
-        (!window.localStorage.welcomePageDisabled || window.localStorage.welcomePageDisabled == "false"))
-    {
-        $("#videoconference_page").hide();
-        var setupWelcomePage = require("./welcome_page/WelcomePage");
-        setupWelcomePage();
+    // if(config.enableWelcomePage && window.location.pathname == "/" &&
+    //     (!window.localStorage.welcomePageDisabled || window.localStorage.welcomePageDisabled == "false"))
+    // {
+    //     $("#videoconference_page").hide();
+    //     var setupWelcomePage = require("./welcome_page/WelcomePage");
+    //     setupWelcomePage();
 
-        return;
-    }
+    //     return;
+    // }
 
     if (interfaceConfig.SHOW_JITSI_WATERMARK) {
         var leftWatermarkDiv
@@ -306,77 +306,77 @@ UI.start = function (init) {
     // Set the defaults for prompt dialogs.
     jQuery.prompt.setDefaults({persistent: false});
 
-    VideoLayout.init(eventEmitter);
-    AudioLevels.init();
-    NicknameHandler.init(eventEmitter);
-    registerListeners();
-    bindEvents();
-    setupPrezi();
-    setupToolbars();
-    setupChat();
+    // VideoLayout.init(eventEmitter);
+    // AudioLevels.init();
+    // NicknameHandler.init(eventEmitter);
+    // registerListeners();
+    // bindEvents();
+    // setupPrezi();
+    // setupToolbars();
+    // setupChat();
 
 
-    document.title = interfaceConfig.APP_NAME;
+    // document.title = interfaceConfig.APP_NAME;
 
-    $("#downloadlog").click(function (event) {
-        dump(event.target);
-    });
+    // $("#downloadlog").click(function (event) {
+    //     dump(event.target);
+    // });
 
-    if(config.enableWelcomePage && window.location.pathname == "/" &&
-        (!window.localStorage.welcomePageDisabled || window.localStorage.welcomePageDisabled == "false"))
-    {
-        $("#videoconference_page").hide();
-        var setupWelcomePage = require("./welcome_page/WelcomePage");
-        setupWelcomePage();
+    // if(config.enableWelcomePage && window.location.pathname == "/" &&
+    //     (!window.localStorage.welcomePageDisabled || window.localStorage.welcomePageDisabled == "false"))
+    // {
+    //     $("#videoconference_page").hide();
+    //     var setupWelcomePage = require("./welcome_page/WelcomePage");
+    //     setupWelcomePage();
 
-        return;
-    }
+    //     return;
+    // }
 
-    $("#welcome_page").hide();
+    // $("#welcome_page").hide();
 
-    // Display notice message at the top of the toolbar
-    if (config.noticeMessage) {
-        $('#noticeText').text(config.noticeMessage);
-        $('#notice').css({display: 'block'});
-    }
+    // // Display notice message at the top of the toolbar
+    // if (config.noticeMessage) {
+    //     $('#noticeText').text(config.noticeMessage);
+    //     $('#notice').css({display: 'block'});
+    // }
 
-    document.getElementById('largeVideo').volume = 0;
+    // document.getElementById('largeVideo').volume = 0;
 
-    if (!$('#settings').is(':visible')) {
-        console.log('init');
-        init();
-    } else {
-        loginInfo.onsubmit = function (e) {
-            if (e.preventDefault) e.preventDefault();
-            $('#settings').hide();
-            init();
-        };
-    }
+    // if (!$('#settings').is(':visible')) {
+    //     console.log('init');
+    //     init();
+    // } else {
+    //     loginInfo.onsubmit = function (e) {
+    //         if (e.preventDefault) e.preventDefault();
+    //         $('#settings').hide();
+    //         init();
+    //     };
+    // }
 
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "positionClass": "notification-bottom-right",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "2000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
-        "reposition": function() {
-            if(PanelToggler.isVisible()) {
-                $("#toast-container").addClass("notification-bottom-right-center");
-            } else {
-                $("#toast-container").removeClass("notification-bottom-right-center");
-            }
-        },
-        "newestOnTop": false
-    };
+    // toastr.options = {
+    //     "closeButton": true,
+    //     "debug": false,
+    //     "positionClass": "notification-bottom-right",
+    //     "onclick": null,
+    //     "showDuration": "300",
+    //     "hideDuration": "1000",
+    //     "timeOut": "2000",
+    //     "extendedTimeOut": "1000",
+    //     "showEasing": "swing",
+    //     "hideEasing": "linear",
+    //     "showMethod": "fadeIn",
+    //     "hideMethod": "fadeOut",
+    //     "reposition": function() {
+    //         if(PanelToggler.isVisible()) {
+    //             $("#toast-container").addClass("notification-bottom-right-center");
+    //         } else {
+    //             $("#toast-container").removeClass("notification-bottom-right-center");
+    //         }
+    //     },
+    //     "newestOnTop": false
+    // };
 
-    SettingsMenu.init();
+    // SettingsMenu.init();
 
 };
 
@@ -578,14 +578,17 @@ UI.inputDisplayNameHandler = function (value) {
 
 UI.getLargeVideoState = function()
 {
-    return VideoLayout.getLargeVideoState();
+    // TODO: fix this. 
+    return null;
+    // return VideoLayout.getLargeVideoState();
 };
 
 UI.generateRoomName = function() {
+
     if(roomName)
         return roomName;
     var roomnode = null;
-    var path = window.location.pathname;
+    var path = "ddemo";
 
     // determinde the room node from the url
     // TODO: just the roomnode or the whole bare jid?
@@ -607,11 +610,11 @@ UI.generateRoomName = function() {
             var word = RoomNameGenerator.generateRoomWithoutSeparator();
             roomnode = word.toLowerCase();
 
-            window.history.pushState('VideoChat',
-                    'Room: ' + word, window.location.pathname + word);
+            // window.history.pushState('VideoChat',
+            //         'Room: ' + word, window.location.pathname + word);
         }
     }
-
+    roomnode = window.$injector.get("meetingService").getMeetingName();
     roomName = roomnode + '@' + config.hosts.muc;
     return roomName;
 };

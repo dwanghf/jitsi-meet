@@ -12,8 +12,8 @@ var APP =
         this.simulcast = require("./modules/simulcast/simulcast");
         this.desktopsharing = require("./modules/desktopsharing/desktopsharing");
         this.xmpp = require("./modules/xmpp/xmpp");
-        this.keyboardshortcut = require("./modules/keyboardshortcut/keyboardshortcut");
-        this.translation = require("./modules/translation/translation");
+        // this.keyboardshortcut = require("./modules/keyboardshortcut/keyboardshortcut");
+        // this.translation = require("./modules/translation/translation");
         this.settings = require("./modules/settings/Settings");
     }
 };
@@ -28,27 +28,26 @@ function init() {
     // Set default desktop sharing method
     APP.desktopsharing.init();
 
-    APP.keyboardshortcut.init();
+    // APP.keyboardshortcut.init();
 }
 
+// $(document).ready(function () {
 
-$(document).ready(function () {
+//     APP.init();
 
-    APP.init();
+//     // APP.translation.init();
 
-    APP.translation.init();
+//     if(APP.API.isEnabled())
+//         APP.API.init();
 
-    if(APP.API.isEnabled())
-        APP.API.init();
+//     // APP.UI.start(init);
 
-    APP.UI.start(init);
+// });
 
-});
-
-$(window).bind('beforeunload', function () {
-    if(APP.API.isEnabled())
-        APP.API.dispose();
-});
+// $(window).bind('beforeunload', function () {
+//     if(APP.API.isEnabled())
+//         APP.API.dispose();
+// });
 
 module.exports = APP;
 

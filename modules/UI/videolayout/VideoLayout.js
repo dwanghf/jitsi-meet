@@ -1,4 +1,4 @@
-var AudioLevels = require("../audio_levels/AudioLevels");
+// var AudioLevels = require("../audio_levels/AudioLevels");
 var Avatar = require("../avatar/Avatar");
 var Chat = require("../side_pannels/chat/Chat");
 var ContactList = require("../side_pannels/contactlist/ContactList");
@@ -589,7 +589,7 @@ var VideoLayout = (function (my) {
                 = new ConnectionIndicator($("#localVideoContainer")[0], null, VideoLayout);
         }
 
-        AudioLevels.updateAudioLevelCanvas(null, VideoLayout);
+        // AudioLevels.updateAudioLevelCanvas(null, VideoLayout);
 
         var localVideoSelector = $('#' + localVideo.id);
 
@@ -1126,7 +1126,7 @@ var VideoLayout = (function (my) {
         // associated with a participant (this could happen in the case of prezi).
         if (APP.xmpp.isModerator() && peerJid !== null)
             addRemoteVideoMenu(peerJid, container);
-        AudioLevels.updateAudioLevelCanvas(peerJid, VideoLayout);
+        // AudioLevels.updateAudioLevelCanvas(peerJid, VideoLayout);
 
         return container;
     };
@@ -1799,50 +1799,67 @@ var VideoLayout = (function (my) {
      * On audio muted event.
      */
     $(document).bind('audiomuted.muc', function (event, jid, isMuted) {
-        /*
-         // FIXME: but focus can not mute in this case ? - check
-        if (jid === xmpp.myJid()) {
+      if (jid === APP.xmpp.myJid() || !angular.isDefined(APP.RTC.remoteStreams[jid])) {
+        return;
+      }
 
-            // The local mute indicator is controlled locally
-            return;
-        }*/
-        var videoSpanId = null;
-        if (jid === APP.xmpp.myJid()) {
-            videoSpanId = 'localVideoContainer';
-        } else {
-            VideoLayout.ensurePeerContainerExists(jid);
-            videoSpanId = 'participant_' + Strophe.getResourceFromJid(jid);
-        }
+      window.$injector.get("$rootScope").$apply(function() {
+        // Note, this can throw an error if the audio stream doesn't exist yet.
+        // TODO: handle this case by storing it in meeting service somewhere.
+        APP.RTC.remoteStreams[jid].Audio.setMute(isMuted);
+      });
 
-        mutedAudios[jid] = isMuted;
+    //     /*
+    //      // FIXME: but focus can not mute in this case ? - check
+    //     if (jid === xmpp.myJid()) {
 
-        if (APP.xmpp.isModerator()) {
-            VideoLayout.updateRemoteVideoMenu(jid, isMuted);
-        }
+    //         // The local mute indicator is controlled locally
+    //         return;
+    //     }*/
+    //     var videoSpanId = null;
+    //     if (jid === APP.xmpp.myJid()) {
+    //         videoSpanId = 'localVideoContainer';
+    //     } else {
+    //         VideoLayout.ensurePeerContainerExists(jid);
+    //         videoSpanId = 'participant_' + Strophe.getResourceFromJid(jid);
+    //     }
 
-        if (videoSpanId)
-            VideoLayout.showAudioIndicator(videoSpanId, isMuted);
+    //     mutedAudios[jid] = isMuted;
+
+    //     if (APP.xmpp.isModerator()) {
+    //         VideoLayout.updateRemoteVideoMenu(jid, isMuted);
+    //     }
+
+    //     if (videoSpanId)
+    //         VideoLayout.showAudioIndicator(videoSpanId, isMuted);
     });
 
     /**
      * On video muted event.
      */
     $(document).bind('videomuted.muc', function (event, jid, value) {
-        var isMuted = (value === "true");
-        if(jid !== APP.xmpp.myJid() && !APP.RTC.muteRemoteVideoStream(jid, isMuted))
-            return;
 
-        Avatar.showUserAvatar(jid, isMuted);
-        var videoSpanId = null;
-        if (jid === APP.xmpp.myJid()) {
-            videoSpanId = 'localVideoContainer';
-        } else {
-            VideoLayout.ensurePeerContainerExists(jid);
-            videoSpanId = 'participant_' + Strophe.getResourceFromJid(jid);
+        var isMuted = (value === "true");
+        if (jid !== APP.xmpp.myJid() && !APP.RTC.muteRemoteVideoStream(jid, isMuted)) {
+            return;
         }
 
-        if (videoSpanId)
-            VideoLayout.showVideoIndicator(videoSpanId, value);
+        window.$injector.get("$rootScope").$apply(function() {
+          APP.RTC.remoteStreams[jid].Video.setMute(isMuted);
+        });
+
+
+        // Avatar.showUserAvatar(jid, isMuted);
+        // var videoSpanId = null;
+        // if (jid === APP.xmpp.myJid()) {
+        //     videoSpanId = 'localVideoContainer';
+        // } else {
+        //     VideoLayout.ensurePeerContainerExists(jid);
+        //     videoSpanId = 'participant_' + Strophe.getResourceFromJid(jid);
+        // }
+
+        // if (videoSpanId)
+        //     VideoLayout.showVideoIndicator(videoSpanId, value);
     });
 
     /**

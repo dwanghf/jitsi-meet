@@ -1,20 +1,20 @@
 var config = {
     hosts: {
-        domain: 'jitsi-meet.example.com',
+        domain: 'webrtc.fatline.io',
         //anonymousdomain: 'guest.example.com',
-        muc: 'conference.jitsi-meet.example.com', // FIXME: use XEP-0030
-        bridge: 'jitsi-videobridge.jitsi-meet.example.com', // FIXME: use XEP-0030
-        //jirecon: 'jirecon.jitsi-meet.example.com',
-        //call_control: 'callcontrol.jitsi-meet.example.com',
-        //focus: 'focus.jitsi-meet.example.com' - defaults to 'focus.jitsi-meet.example.com'
+        muc: 'conference.webrtc.fatline.io', // FIXME: use XEP-0030
+        bridge: 'jitsi-videobridge.webrtc.fatline.io', // FIXME: use XEP-0030
+        //jirecon: 'jirecon.jitsi.example.com',
+        //call_control: 'callcontrol.jitsi.example.com',
+        focus: 'focus.webrtc.fatline.io' //- defaults to 'focus.jitsi-meet.example.com'
     },
 //  getroomnode: function (path) { return 'someprefixpossiblybasedonpath'; },
 //  useStunTurn: true, // use XEP-0215 to fetch STUN and TURN server
 //  useIPv6: true, // ipv6 support. use at your own risk
     useNicks: false,
-    bosh: '//jitsi-meet.example.com/http-bind', // FIXME: use xep-0156 for that
+    bosh: '//webrtc.fatline.io/http-bind', // FIXME: use xep-0156 for that
     clientNode: 'http://jitsi.org/jitsimeet', // The name of client node advertised in XEP-0115 'c' stanza
-    //focusUserJid: 'focus@auth.jitsi-meet.example.com', // The real JID of focus participant - can be overridden here
+    //focusUserJid: 'focus@auth.jitsi.example.com', // The real JID of focus participant - can be overridden here
     //defaultSipNumber: '', // Default SIP number
     desktopSharing: 'ext', // Desktop sharing method. Can be set to 'ext', 'webrtc' or false to disable.
     chromeExtensionId: 'diibjkoicjeejcmhdnailmkgecihlobk', // Id of desktop streamer Chrome extension
